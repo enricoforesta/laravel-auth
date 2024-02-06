@@ -8,4 +8,6 @@
             </li>
         @endforeach
     </ul>
+
+    <a href="{{ route('admin.projects.create') }}">Crea una pasta</a>
 @endsection

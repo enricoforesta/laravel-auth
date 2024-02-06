@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 50)->unique();
             $table->text('description')->nullable();
-            $table->string('slug', 100);
+            $table->string('slug', 100)->default(' ');
             $table->string('language', 30);
             $table->string('frameworks')->nullable();
             $table->date('start_date');

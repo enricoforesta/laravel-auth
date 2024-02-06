@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,24 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required||max:50',
+            'status' => 'required|max:20',
+            'language' => 'required|max:30',
+            'start_date' => 'required',
+            'slug' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+
+            'title.required' => 'Il titolo è obbligatorio.',
+            'title.max' => 'Il titolo non può superare i :max caratteri.',
+            'status.required' => 'Lo stato è obbligatorio.',
+            'status.max' => 'Lo stato non può superare i :max caratteri.',
+            'language.required' => 'Il linguaggio è obbligatorio.',
+            'language.max' => 'Il linguaggio non può superare i :max caratteri.',
+            'start_date.required' => 'La data è obbligatoria.',
         ];
     }
 }
