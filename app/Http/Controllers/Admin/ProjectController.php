@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -34,9 +35,10 @@ class ProjectController extends Controller
         $data = $request->validated();
         $project = new Project();
         $project->fill($data);
+        $project->slug = Str::of($project->title)->slug('-');
         $project->save();
 
-        return redirect()->route('admin.project.index');
+        return redirect()->route('admin.projects.index')->with('message', 'Crezione avvenuta con successo!');
     }
 
     /**
@@ -44,7 +46,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('admin.project.show', compact('project'));
     }
 
     /**
@@ -52,7 +54,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.project.edit', compact('project'));
     }
 
     /**
@@ -60,7 +62,10 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $data = $request->validated();
+        $project->slug = Str::of($data['title'])->slug('-');
+        $project->update($data);
+        return redirect()->route('admin.projects.index')->with('message', 'Modifica avvenuta con successo!');
     }
 
     /**
@@ -68,6 +73,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+
+        $project->delete();
+
+        return redirect()->route('admin.projects.index')->with('message', "Post cancellato correttamente");
     }
 }

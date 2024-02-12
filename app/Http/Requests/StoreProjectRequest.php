@@ -25,9 +25,11 @@ class StoreProjectRequest extends FormRequest
         return [
             'title' => 'required||max:50',
             'status' => 'required|max:20',
+            'description' => 'required',
+            'frameworks' => 'required|max:40',
             'language' => 'required|max:30',
             'start_date' => 'required',
-            'slug' => 'required',
+            // 'slug' => 'required',
         ];
     }
     public function messages()
