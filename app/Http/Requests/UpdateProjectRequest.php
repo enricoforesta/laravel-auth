@@ -25,9 +25,9 @@ class UpdateProjectRequest extends FormRequest
         return [
             'title' => ['required', 'max:50', Rule::unique('projects')->ignore($this->project)],
             'status' => 'required|max:20',
-            'description' => 'required|max:20',
-            'frameworks' => 'required|max:40',
-            'language' => 'required|max:30',
+            'description' => 'nullable',
+            'frameworks' => 'nullable|max:40',
+            'language' => 'nullable|max:30',
             'start_date' => 'required',
             // 'slug' => 'required',
         ];
